@@ -53,7 +53,7 @@ def get_virus_code():
 
 def summon_chaos():
     # the virus payload
-    print("We are sick, fucked up and complicated\nWe are chaos, we can't be cured. ")
+    print("Coloque um pouco de anarquia, desestabilize a ordem e tudo virará o caos.\n Eu sou o agente do caos! ")
 
 # entry point
 
